@@ -2,7 +2,7 @@
 __pycache__
 venv
 db.sqlite
-/static
+/static_in_dev
 .DS_Store
 *.xml
 *.iml
