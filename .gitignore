@@ -3,7 +3,6 @@ __pycache__
 venv
 db.sqlite
 /static_in_dev
-/static
 .DS_Store
 *.xml
 *.iml
