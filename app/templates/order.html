@@ -1,0 +1,48 @@
+{% extends 'wrapper.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2 class="text-info">order</h2>
+    <table class="table">
+        <tr>
+            <td class="text-danger">tour</td>
+            <td class="text-danger">price</td>
+            <td></td>
+        </tr>
+        {% for item in cart.items.all %}
+            <tr class="cart-item-{{ item.slug }}">
+                <td>{{ item.title }}</td>
+                <td>{{ item.price }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td><h3 class="text-info">Total cost:</h3></td>
+            <td id="cart-total">{{ cart.cart_total }}</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <form action="{% url 'checkout' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-4">
+                {{ form.first_name|as_crispy_field }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.last_name|as_crispy_field }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.phone|as_crispy_field }}
+            </div>
+        </div>
+        {{ form.date|as_crispy_field }}
+        {{ form.address|as_crispy_field }}
+        {{ form.comment|as_crispy_field }}
+        <input type="submit" class="btn btn-success" value="Checkout">
+
+{#        {{ form|crispy }}#}
+    </form>
+    <br>
+    <br>
+{% endblock %}

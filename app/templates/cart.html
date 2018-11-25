@@ -1,0 +1,61 @@
+{% extends 'wrapper.html' %}
+
+{% block content %}
+    {% if cart.items.count > 0 %}
+        <h2 id="shopping-cart-title">cart</h2>
+        <div id="shopping-cart">
+            <table class="table">
+                <tr>
+                    <td class="text-danger">tour</td>
+                    <td class="text-danger">price</td>
+                    <td></td>
+                </tr>
+                {% for item in cart.items.all %}
+                    <tr class="cart-item-{{ item.slug }}">
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.price }}</td>
+                        <td><a href="" class="remove-from-cart" data-slug="{{ item.slug }}"><button class="btn btn-danger">delete from cart</button></a></td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><h3 class="text-info">Total cost:</h3></td>
+                    <td id="cart-total">{{ cart.cart_total }}</td>
+                    <td><a href="{% url 'order' %}"><button class="btn">process to checkout</button></a></td>
+                </tr>
+            </table>
+        </div>
+    {% else %}
+        <h2>cart is empty</h2>
+    {% endif %}
+
+{% endblock content %}
+
+{% block jquery %}
+    <script>
+    $( document ).ready(function() {
+        $('.remove-from-cart').on('click', function(e) {
+            e.preventDefault();
+            let tour_slug = $(this).attr('data-slug');
+            let data = {
+                tour_slug
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "{% url 'remove_from_cart' %}",
+                data,
+                success: (data) => {
+                    $('#cart-total').html(parseFloat(data.cart_total).toFixed(5));
+                    $('#cart-count').html(data.cart_total_count);
+                    if(data.cart_total_count == 0){
+                        $("#shopping-cart").remove()
+                        $('#shopping-cart-title').html('cart is empty')
+                    }
+                }
+            })
+
+            $('.cart-item-' + tour_slug).remove()
+        })
+    });
+    </script>
+{% endblock %}
