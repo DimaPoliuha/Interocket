@@ -3,79 +3,61 @@
 <html lang="en">
 
   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+      <meta name="description" content="Interocket - Be the first, explore">
+      <meta name="author" content="Dima/Anya/Dan">
 
-    <title>Shop Homepage - Start Bootstrap Template</title>
+      <title>Interocket</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
+      <link rel="icon" href="{% static 'img/earth_outline.ico' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+      <link rel="stylesheet" href="{% static 'css/form.css' %}">
+      <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+      <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
-    <!-- Custom styles for this template -->
-    <link href='{% static "css/shop-homepage.css" %}' rel="stylesheet">
+      <link href="{% static 'css/modern-business.css' %}" rel="stylesheet">
+
+      <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
+      <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
   </head>
-
   <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'base' %}">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                  {% if request.user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'account' %}">{{ request.user }}</a>
-                      <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                  {% else %}
-                    <a class="nav-link" href="{% url 'registration' %}">Sign up</a>
-                      <a class="nav-link" href="{% url 'login' %}">Log in</a>
-                  {% endif %}
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'cart' %}">Cart <span class="badge" id="cart-count">{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span> </a>
-              </li>
-
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <br>
-    <br>
-    <br>
-    <br>
-    <!-- Page Content -->
-    <div class="container">
 
 
     {% block content %}
-    {% endblock content %}
+    {% endblock %}
 
 
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      </div>
-      <!-- /.container -->
+    <footer class="flex">
+        <div class="footer-wrapper flex flex-centered flex-row black">
+            <div class="footer-text flex"><span>Kyiv 2018</span></div>
+            <div class="flex">
+                <div class="footer-text flex"><span>Sponsored by:</span></div>
+                <div class="footer-social-icon-container"><img class="footer-social-icon" src="{% static 'icons/icon-facebook.svg' %}" alt="Facebook"></div>
+                <div class="footer-social-icon-container"><img class="footer-social-icon" src="{% static 'icons/icon-tesla.png' %}" alt="Tesla"></div>
+                <div class="footer-social-icon-container"><img class="footer-social-icon" src="{% static 'icons/icon-airbnb.png' %}" alt="Airbnb"></div>
+            </div>
+            <div class="footer-text flex"><span><strong>©</strong> Interocket.</span></div>
+        </div>
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
     <script src='{% static "js/jquery.min.js" %}'></script>
     <script src='{% static "js/bootstrap.min.js" %}'></script>
-  {%  block jquery %}
-  {% endblock %}
 
-  </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script src="{% static 'js/formLabels.js' %}"></script>
+    <script src="{% static 'js/onScroll.js' %}"></script>
+    <script src="{% static 'js/tabNavigation.js' %}"></script>
+    <script src="{% static 'js/backToTop.js' %}"></script>
 
+ {%  block jquery %}
+
+ {% endblock %}
+
+</body>
 </html>

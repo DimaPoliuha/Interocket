@@ -1,0 +1,115 @@
+/*** VANILLA CSS ANIMATIONS ***/
+@keyframes slideIn {
+  0% { transform: translateY(-30px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+@keyframes float {
+	0% { opacity: 0.6; }
+	50% { opacity: 1.0; }
+	100% { opacity: 0.6; }
+}
+
+/*** ON SCROLL ANIMATIONS ***/
+/* LEFT SLIDE */
+[data-aos="leftSlideShort"] {
+  opacity: 0.0;
+  transform: translateX(20px);
+  transition-property: opacity, transform;
+}
+[data-aos="leftSlideShort"].aos-animate {
+  opacity: 1.0;
+  transform: translateX(0px);
+}
+[data-aos="leftSlideMedium"] {
+  opacity: 0.0;
+  transform: translateX(60px);
+  transition-property: opacity, transform;
+}
+[data-aos="leftSlideMedium"].aos-animate {
+  opacity: 1.0;
+  transform: translateX(0px);
+}
+[data-aos="leftSlideLong"] {
+  opacity: 0.0;
+  transform: translateX(100px);
+  transition-property: opacity, transform;
+}
+[data-aos="leftSlideLong"].aos-animate {
+  opacity: 1.0;
+  transform: translateX(0px);
+}
+
+/* DOWN SLIDE */
+[data-aos="downSlideShort"] {
+  opacity: 0.0;
+  transform: translateY(-20px);
+  transition-property: opacity, transform;
+}
+[data-aos="downSlideShort"].aos-animate {
+  opacity: 1.0;
+  transform: translateY(0px);
+}
+[data-aos="downSlideMedium"] {
+  opacity: 0.0;
+  transform: translateY(-60px);
+  transition-property: opacity, transform;
+}
+[data-aos="downSlideMedium"].aos-animate {
+  opacity: 1.0;
+  transform: translateY(0px);
+}
+
+[data-aos="downSlideLong"] {
+  opacity: 0.0;
+  transform: translateY(-100px);
+  transition-property: opacity, transform;
+}
+[data-aos="downSlideLong"].aos-animate {
+  opacity: 1.0;
+  transform: translateY(0px);
+}
+
+/* UP SLIDE */
+[data-aos="upSlideShort"] {
+  opacity: 0.0;
+  transform: translateY(20px);
+  transition-property: opacity, transform;
+}
+[data-aos="upSlideShort"].aos-animate {
+  opacity: 1.0;
+  transform: translateY(0px);
+}
+[data-aos="upSlideMedium"] {
+  opacity: 0.0;
+  transform: translateY(60px);
+  transition-property: opacity, transform;
+}
+[data-aos="upSlideMedium"].aos-animate {
+  opacity: 1.0;
+  transform: translateY(0px);
+}
+
+[data-aos="upSlideLong"] {
+  opacity: 0.0;
+  transform: translateY(100px);
+  transition-property: opacity, transform;
+}
+[data-aos="upSlideLong"].aos-animate {
+  opacity: 1.0;
+  transform: translateY(0px);
+}
+
+/* APPEAR */
+[data-aos="simpleAppear"] {
+  opacity: 0.0;
+  transition-property: opacity;
+}
+[data-aos="simpleAppear"].aos-animate {
+  opacity: 1.0;
+}

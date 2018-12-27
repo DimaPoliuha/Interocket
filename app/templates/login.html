@@ -1,10 +1,34 @@
 {% extends "wrapper.html" %}
-{% load crispy_forms_tags %}
+{% load static %}
+
 
 {% block content %}
-    <form action="" method="POST">
-    {% csrf_token %}
-    {{ form|crispy }}
-        <input type="submit" class="btn btn-success" value="Log in">
-    </form>
+    {% include 'header_dark_auth.html' %}
+
+    <section class="contact-section flex flex-col flex-centered" id="contact">
+      <div class="contact-section-wrapper flex flex-centered">
+        <div class="contact-wrapper flex flex-col flex-centered">
+
+          <h2 class="standard-title text-centered light">Let's start. Sign in.</h2>
+
+          <div class="contact-form-container">
+            <form action='' method="post" class='form'>
+                {% csrf_token %}
+              <p class='field required' data-aos="upSlideLong" data-aos-once="false">
+                <label class='label' for='username'>Username</label>
+                <input class='text-input' id='username' name='username' required type='text'>
+              </p>
+              <p class='field required' data-aos="upSlideLong" data-aos-once="false">
+                <label class='label required' for='password'>Password</label>
+                <input class='text-input' id='password' name='password' required type='password'>
+              </p>
+              <p class='field field-button' data-aos="upSlideLong" data-aos-duration="700" data-aos-once="false">
+                <input class='button uppercase black' type='submit' value='send'>
+              </p>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
 {% endblock %}

@@ -1,34 +1,42 @@
-{% extends 'wrapper.html' %}
+{% extends "wrapper.html" %}
+{% load static %}
 
 {% block content %}
-    <h2 class="text-info">Your orders</h2>
-        <table>
-            <tr>
-                <td>Order number</td>
-                <td>Order date</td>
-                <td>Order status</td>
-                <td>Order price</td>
-                <td>Order details</td>
-            </tr>
-            {% for order in orders %}
+    {% include 'header_dark.html' %}
+
+        <section class="contact-section flex flex-col flex-centered" id="contact">
+      <div class="contact-section-wrapper flex flex-centered">
+        <div class="contact-wrapper flex flex-col flex-centered">
+
+            <h2 class="standard-title text-centered light">Orders.</h2>
+
+            <table>
                 <tr>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.date }}</td>
-                    <td>{{ order.status }}</td>
-                    <td>{{ order.total_price }}</td>
-                    <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal-{{ order.id }}">
-                      Order details
-                    </button></td>
+                    <td>Order number</td>
+                    <td>Order date</td>
+                    <td>Order status</td>
+                    <td>Order price</td>
+                    <td>Order details</td>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.date }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>{{ order.total_price }}</td>
+                        <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal-{{ order.id }}">
+                          Order details
+                        </button></td>
+                    </tr>
+                {% endfor %}
+            </table>
 
 
     {% for order in orders %}
         <!-- Modal -->
         <div class="modal fade" id="myModal-{{ order.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
+          <div class="modal-dialog" role="document" >
+            <div class="modal-content"  style="background-color: #2f2f2f">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tours</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -53,10 +61,14 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+{#                <button type="button" class="btn btn-primary">Save changes</button>#}
               </div>
             </div>
           </div>
         </div>
     {% endfor %}
+
+        </div>
+      </div>
+        </section>
 {% endblock %}

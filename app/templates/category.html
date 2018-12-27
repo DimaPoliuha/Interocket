@@ -1,22 +1,36 @@
 {% extends 'wrapper.html' %}
+{% load static %}
 
 {% block content %}
-    <h2>{{ category.name }}</h2>
-  <div class="row">
-    {% for tour in tours %}
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-            <a href="{{ tour.get_absolute_url }}"><img class="card-img-top" src="{{ tour.image.url }}" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="{{ tour.get_absolute_url }}">{{ tour.title }}</a>
-              </h4>
-              <h5>{{ tour.price }} BTC</h5>
-              <p class="card-text">{{ tour.description }}</p>
-            </div>
+    {% include 'header.html' %}
+    <section>
+      <div class="container" style="padding-top: 7%">
+        <div class="row">
+          <div class="col-lg-6">
+            <h1 class="mt-5">{{ category.name }}</h1>
+            <p>{{ category.description }}</p>
           </div>
         </div>
-    {% endfor %}
+      </div>
+    </section>
+    <div class="container">
 
-  </div>
-{% endblock content %}
+
+  <div class="row">
+        {% for tour in tours %}
+            <div class="col-lg-6 portfolio-item">
+              <div class="card h-100">
+                <a href="{{ tour.get_absolute_url }}"><img class="card-img-top" src="{{ tour.image.url }}" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="{{ tour.get_absolute_url }}">{{ tour.title }}</a>
+                  </h4>
+                  <h5>{{ tour.price }} BTC</h5>
+                  <h5>{{ tour.duration }} Earth days</h5>
+                  <p class="card-text">{{ tour.short_description }}</p>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

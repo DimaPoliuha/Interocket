@@ -1,0 +1,55 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+
+{% block content %}
+    {% include 'header.html' %}
+    <div class="container" style="padding-top: 7%">
+
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide  -->
+            {% for category in tours_categories %}
+              <div class="carousel-item {% if category.name == 'Water.' %}active{% endif %}" style="background-image: url('{{ category.image.url }}')">
+                <div class="carousel-caption d-none d-md-block">
+                  <a href="{{ category.get_absolute_url }}"><h3 style="color: white">{{ category.name }}</h3></a>
+                  <a href="{{ category.get_absolute_url }}"><p style="color: white">{{ category.description }}</p></a>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+  <div class="row" style="margin-top: 30px">
+        {% for tour in tours %}
+            <div class="col-lg-6 portfolio-item">
+              <div class="card h-100">
+                <a href="{{ tour.get_absolute_url }}"><img class="card-img-top" src="{{ tour.image.url }}" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="{{ tour.get_absolute_url }}">{{ tour.title }}</a>
+                  </h4>
+                  <h5>{{ tour.price }} BTC</h5>
+                  <h5>{{ tour.duration }} Earth days</h5>
+                  <p class="card-text">{{ tour.short_description }}</p>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+
+  </div>
+{% endblock %}

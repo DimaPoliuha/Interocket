@@ -1,0 +1,19 @@
+{% extends 'wrapper.html' %}
+
+{% block content %}
+        {% include 'header.html' %}
+    <div class="container" style="padding-top: 7%">
+
+    <div class="col-lg-12 col-md-12 mb-12">
+      <div class="card h-100">
+        <img class="card-img-top" src="{{ new.image.url }}" alt="">
+        <div class="card-body">
+          <h4 class="card-title">
+            {{ new.title }}
+          </h4>
+          <p class="card-text">{{ new.description }}</p>
+        </div>
+      </div>
+    </div>
+    </div>
+{% endblock content %}

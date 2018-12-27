@@ -3,13 +3,13 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login, authenticate
 
-from .models import TourCategory, Tour, Cart, Order
+from .models import TourCategory, Tour, Cart, Order, New
 from .forms import *
 
 
 def base_view(request):
-    tours_categories = TourCategory.objects.all()
     tours = Tour.objects.filter(available=True)
+    news = New.objects.all()
     try:
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
@@ -22,11 +22,32 @@ def base_view(request):
         Cart.objects.get(id=cart_id)
 
     context = {
-        'tours_categories': tours_categories,
         'tours': tours,
         'cart': cart,
+        'news': news
     }
     return render(request, 'base.html', context)
+
+
+def new_view(request, new_slug):
+    new = New.objects.get(slug=new_slug)
+    try:
+        cart_id = request.session['cart_id']
+        cart = Cart.objects.get(id=cart_id)
+        request.session['total'] = cart.items.count()
+    except:
+        cart = Cart()
+        cart.save()
+        cart_id = cart.id
+        request.session['cart_id'] = cart_id
+        Cart.objects.get(id=cart_id)
+
+    context = {
+        'new': new,
+        'cart': cart,
+
+    }
+    return render(request, 'new.html', context)
 
 
 def tour_view(request, tour_slug):
@@ -73,6 +94,28 @@ def category_view(request, category_slug):
 
     }
     return render(request, 'category.html', context)
+
+
+def tours_view(request):
+    tours_categories = TourCategory.objects.all()
+    tours = Tour.objects.filter(available=True)
+    try:
+        cart_id = request.session['cart_id']
+        cart = Cart.objects.get(id=cart_id)
+        request.session['total'] = cart.items.count()
+    except:
+        cart = Cart()
+        cart.save()
+        cart_id = cart.id
+        request.session['cart_id'] = cart_id
+        Cart.objects.get(id=cart_id)
+
+    context = {
+        'tours_categories': tours_categories,
+        'tours': tours,
+        'cart': cart,
+    }
+    return render(request, 'tours.html', context)
 
 
 def cart_view(request):
@@ -194,10 +237,7 @@ def checkout_view(request):
         del request.session['cart_id']
         del request.session['total']
 
-        context = {
-        }
-
-        return render(request, 'checkout.html', context)
+        return HttpResponseRedirect(reverse('base'))
 
 
 def account_view(request):
@@ -236,7 +276,7 @@ def registration_view(request):
             return HttpResponseRedirect(reverse('base'))
         return HttpResponseRedirect(reverse('login'))
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'registration.html', context)
 

@@ -54,6 +54,7 @@ class RegistrationForm(forms.ModelForm):
                 code='email exists')
 
 
+
 class LoginForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
 

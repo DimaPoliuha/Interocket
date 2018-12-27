@@ -1,10 +1,184 @@
 {% extends "wrapper.html" %}
-{% load crispy_forms_tags %}
+{% load static %}
+
 
 {% block content %}
-    <form action="" method="POST">
-    {% csrf_token %}
-    {{ form|crispy }}
-        <input type="submit" class="btn btn-success" value="Sign up">
-    </form>
+    {% include 'header_dark_auth.html' %}
+
+    <section class="contact-section flex flex-col flex-centered" id="contact">
+      <div class="contact-section-wrapper flex flex-centered">
+        <div class="contact-wrapper flex flex-col flex-centered">
+
+          <h2 class="standard-title text-centered light">Go on. Sign up.</h2>
+
+          <div class="contact-form-container">
+            <form action=''  method="POST" class='form'>
+                {% csrf_token %}
+                <div>
+              <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                <label class='label required' for='first_name'>First Name</label>
+                <input class='text-input' id='first_name' name='first_name' required type='text'>
+              </p>
+                <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                <label class='label required' for='last_name'>Last Name</label>
+                <input class='text-input' id='last_name' name='last_name' required type='text'>
+              </p>
+                </div>
+                <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                <label class='label required' for='username'>Username</label>
+                <input class='text-input' id='username' name='username' required type='text'>
+              </p>
+              <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                <label class='label required' for='email'>Email</label>
+                <input class='text-input' id='email' name='email' required type='email'>
+              </p>
+                <div>
+              <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                <label class='label required' for='password'>Password</label>
+                <input class='text-input' id='password' name='password' required type='password'>
+              </p>
+                <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                <label class='label required' for='password_check'>Repeat password</label>
+                <input class='text-input' id='password_check' name='password_check' required type='password'>
+              </p>
+                </div>
+              <p class='field field-button' data-aos="upSlideLong" data-aos-duration="700" data-aos-once="false">
+                <input class='button uppercase black' id="button-submit" type='submit' value='send' data-toggle="modal" data-target="#exampleModal">
+              </p>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Anti-humans</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <canvas id="gc" width="400" height="400"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block jquery %}
+    <script>
+    px=py=10;
+    gs=tc=20;
+    ax=ay=15;
+    xv=yv=0;
+    trail=[];
+    tail = 5;
+    function game() {
+        if(tail > 6){
+            tail = 5;
+            $('.close').click();
+            $('#button-submit').unbind('click');
+            $('#button-submit').click();
+        }
+        px+=xv;
+        py+=yv;
+        if(px<0) {
+            px= tc-1;
+        }
+        if(px>tc-1) {
+            px= 0;
+        }
+        if(py<0) {
+            py= tc-1;
+        }
+        if(py>tc-1) {
+            py= 0;
+        }
+        ctx.fillStyle="black";
+        ctx.fillRect(0,0,canv.width,canv.height);
+
+        ctx.fillStyle="lime";
+        for(var i=0;i<trail.length;i++) {
+            ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
+            if(trail[i].x==px && trail[i].y==py) {
+                tail = 5;
+            }
+        }
+        trail.push({x:px,y:py});
+        while(trail.length>tail) {
+        trail.shift();
+        }
+
+        if(ax==px && ay==py) {
+            tail++;
+            ax=Math.floor(Math.random()*tc);
+            ay=Math.floor(Math.random()*tc);
+
+        }
+        ctx.fillStyle="red";
+        ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+    }
+    function keyPush(evt) {
+        switch(evt.keyCode) {
+            case 37:
+                xv=-1;yv=0;
+                break;
+            case 38:
+                xv=0;yv=-1;
+                break;
+            case 39:
+                xv=1;yv=0;
+                break;
+            case 40:
+                xv=0;yv=1;
+                break;
+        }
+    }
+    $( document ).ready(function() {
+        $('#button-submit').on('click', function(e) {
+            e.preventDefault();
+            $('html, body').css({
+                overflow: 'hidden',
+                height: '100%'
+            });
+            canv=document.getElementById("gc");
+            ctx=canv.getContext("2d");
+            document.addEventListener("keydown",keyPush);
+            setInterval(game,1000/15);
+
+
+
+
+
+            {#let tour_slug = $(this).attr('data-slug');#}
+            {#let data = {#}
+            {#    tour_slug }#}
+            {##}
+            {#$.ajax({#}
+            {#    type: "GET",#}
+            {#    url: "{% url 'remove_from_cart' %}",#}
+            {#    data,#}
+            {#    success: (data) => {#}
+            {#        $('#cart-total').html(parseFloat(data.cart_total).toFixed(5));#}
+            {#        $('#cart-count').html(data.cart_total_count);#}
+            {#        if(data.cart_total_count == 0){#}
+            {#            $("#shopping-cart").remove()#}
+            {#            $('#shopping-cart-title').html('cart is empty')#}
+            {#        }#}
+            {#    }})#}
+            {##}
+            {#$('.cart-item-' + tour_slug).remove()#}
+        });
+        $('.close').on('click', function(e) {
+            $('html, body').css({
+                overflowY: 'auto',
+                height: 'auto'
+            });
+
+        });
+    });
+    </script>
 {% endblock %}

@@ -8,13 +8,31 @@ from transliterate import translit
 
 def pre_save_tour_category_slug(sender, instance, *args, **kwargs):
     if not instance.slug:
-        instance.slug = slugify(translit(str(instance.name), reversed=True))
+        instance.slug = slugify(str(instance.name))
+        # instance.slug = slugify(translit(str(instance.name), reversed=True))
+
+
+def pre_save_tour_slug(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(str(instance.title))
+
+
+def image_upload_path(instance, filename):
+    filename = instance.slug + '.' + filename.split('.')[-1]
+    return '{0}/{1}/{2}'.format(instance.__class__.__name__.lower(), instance.slug, filename)
+
+
+def icon_upload_path(instance, filename):
+    filename = instance.slug + '.' + filename.split('.')[-1]
+    return '{0}/{1}/icon/{2}'.format(instance.__class__.__name__.lower(), instance.slug, filename)
 
 
 # table TourCategory
 class TourCategory(models.Model):
     name = models.CharField(max_length=30)
+    image = models.ImageField(upload_to=image_upload_path)
     slug = models.SlugField(unique=True, blank=True)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -26,11 +44,6 @@ class TourCategory(models.Model):
 pre_save.connect(pre_save_tour_category_slug, sender=TourCategory)
 
 
-def image_upload_path(instance, filename):
-    filename = instance.slug + '.' + filename.split('.')[-1]
-    return '{0}/{1}/{2}'.format(instance.__class__.__name__.lower(), instance.slug, filename)
-
-
 # # make checkbox "available" in Tour working
 # class TourManager(models.Manager):
 #     def all(self, *args, **kwargs):
@@ -40,9 +53,12 @@ def image_upload_path(instance, filename):
 # table Tour
 class Tour(models.Model):
     title = models.CharField(max_length=120)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     description = models.TextField()
+    short_description = models.TextField()
+    duration = models.IntegerField(default=7)
     image = models.ImageField(upload_to=image_upload_path)
+    icon = models.ImageField(upload_to=icon_upload_path, blank=True)
     price = models.DecimalField(max_digits=17, decimal_places=5)
     available = models.BooleanField(default=True)
     category = models.ForeignKey(
@@ -57,6 +73,26 @@ class Tour(models.Model):
 
     def get_absolute_url(self):
         return reverse('tour_detail', kwargs={'tour_slug': self.slug})
+
+
+pre_save.connect(pre_save_tour_slug, sender=Tour)
+
+
+class New(models.Model):
+    title = models.CharField(max_length=120)
+    slug = models.SlugField(unique=True, blank=True)
+    description = models.TextField()
+    short_description = models.TextField(blank=True)
+    image = models.ImageField(upload_to=image_upload_path)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('new_detail', kwargs={'new_slug': self.slug})
+
+
+pre_save.connect(pre_save_tour_slug, sender=New)
 
 
 class Cart(models.Model):

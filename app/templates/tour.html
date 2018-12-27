@@ -1,22 +1,27 @@
 {% extends 'wrapper.html' %}
 
 {% block content %}
+    {% include 'header.html' %}
+    <div class="container" style="padding-top: 7%">
+
     <div class="col-lg-12 col-md-12 mb-12">
       <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="{{ tour.image.url }}" alt=""></a>
+        <img class="card-img-top" src="{{ tour.image.url }}" alt="">
         <div class="card-body">
           <h4 class="card-title">
-            <a href="{{ tour.get_absolute_url }}">{{ tour.title }}</a>
+            {{ tour.title }}
           </h4>
-          <h5>{{ tour.price }} BTC</h5>
           <p class="card-text">{{ tour.description }}</p>
+            <p class="card-text">Duration {{ tour.duration }} Earth days</p>
+            <h5>{{ tour.price }} BTC</h5>
             {% if request.user.is_authenticated %}
                 <a href="" class="add-to-cart" data-slug="{{ tour.slug }}"><button class="btn btn-danger">Add to cart</button></a>
             {% else %}
-                <a href="" class=""><button class="btn btn-danger">Authorise to buy a tour</button></a>
+                <a href="{% url 'registration' %}" class=""><button class="btn btn-danger">Sign Up</button></a>
             {% endif %}
         </div>
       </div>
+    </div>
     </div>
 {% endblock content %}
 

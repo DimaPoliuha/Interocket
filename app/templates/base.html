@@ -1,43 +1,96 @@
 {% extends 'wrapper.html' %}
+{% load static %}
 
 {% block content %}
-  <div class="row">
+    {% include 'header.html' %}
 
-    <div class="col-lg-3">
+	<!-- BOXED HEADER NEEDED -->
 
-      <h1 class="my-4">Shop Name</h1>
-        <div class="list-group">
-            {% for category in tours_categories %}
-                <a href="{{ category.get_absolute_url }}" class="list-group-item">{{ category.name }}</a>
-            {% endfor %}
-      </div>
+    <section class="intro-section">
 
-    </div>
-    <!-- /.col-lg-3 -->
-
-    <div class="col-lg-9">
-      <div class="row">
-        {% for tour in tours %}
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="{{ tour.get_absolute_url }}"><img class="card-img-top" src="{{ tour.image.url }}" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="{{ tour.get_absolute_url }}">{{ tour.title }}</a>
-                  </h4>
-                  <h5>{{ tour.price }} BTC</h5>
-                  <p class="card-text">{{ tour.description }}</p>
+        <!-- INTRO PAGE -->
+        <div class="intro-page-wrapper flex flex-centered flex-col">
+            <div class="intro-page-title-wrapper flex flex-centered flex-col">
+                <div class="text-centered" data-aos="leftSlideMedium" data-aos-once="true" data-aos-duration="400">
+                    <h1 class="intro-page-title text-right-align light">Be the first.<br />Explore.</h1>
                 </div>
-              </div>
             </div>
+        </div>
+
+    </section>
+
+    <!-- GO TO TOP -->
+    <a href="#0" class="cd-top">Top</a>
+
+    <section class="info-section flex" id="info">
+        <div class="info-container flex">
+
+            <div class="info-block text-centered">
+                <div class="info-image-container flex" data-aos="downSlideMedium" data-aos-duration="400"><img src="{% static 'icons/humans.png' %}" alt="" class="info-image"></div>
+                <div class="info-title bold uppercase" data-aos="downSlideMedium" data-aos-duration="400">Humans.</div>
+                <div class="info-info" data-aos="downSlideMedium" data-aos-duration="400">We are unbelievable.</div>
+            </div>
+            <div class="info-block text-centered">
+                <div class="info-image-container flex" data-aos="downSlideMedium" data-aos-duration="400"><img src="{% static 'icons/climate.png' %}" alt="" class="info-image"></div>
+                <div class="info-title bold uppercase" data-aos="downSlideMedium" data-aos-duration="400">Climate.</div>
+                <div class="info-info" data-aos="downSlideMedium" data-aos-duration="400">Cool wind, fresh water, and even powder snow.</div>
+            </div>
+            <div class="info-block text-centered">
+                <div class="info-image-container flex" data-aos="downSlideMedium" data-aos-duration="400"><img src="{% static 'icons/emotions.png' %}" alt="" class="info-image"></div>
+                <div class="info-title bold uppercase" data-aos="downSlideMedium" data-aos-duration="400">Emotions.</div>
+                <div class="info-info" data-aos="downSlideMedium" data-aos-duration="400"><div>Feel happiness, sadness, love, and surprise.</div></div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+                    <!-- TABS -->
+    <!--     <ul class="menu-navigation" data-tabs data-match-height="true" id="example-tabs">
+                    <li class="tabs-title is-active"><a class="m-anim" aria-selected="true" href="#panel1" data-text="7 Wonders">7 Wonders</a></li>
+                    <li class="tabs-title"><a class="m-anim" data-tabs-target="panel2" href="#panel2" data-text="National Parks">National Parks</a></li>
+                    <li class="tabs-title"><a class="m-anim" data-tabs-target="panel3" href="#panel3" data-text="Something Else">Something Else</a></li>
+            </ul> -->
+
+    <section class="tour-section flex flex-col flex-centered" id="tour">
+{#        <h2 class="tour-main-title text-centered light">Form your trip</h2>#}
+
+        <div class="tour-container flex">
+
+            {% for tour in tours %}
+                {% if tour.icon %}
+            <div class="tour-item-wrapper">
+                <a class="tour-item flex flex-col" href="{{ tour.get_absolute_url }}">
+                    <div class="tour-item-image-container flex flex-centered">
+                        <img class="tour-item-image" src="{{ tour.icon.url }}" alt="">
+                    </div>
+                    <span class="tour-item-title"><a href="{{ tour.get_absolute_url }}">{{ tour.title }}</a></span>
+                </a>
+            </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <section class="news-section flex flex-col flex-centered" id="news">
+    <div class="container">
+    <div class="row">
+        {% for new in news %}
+        <div class="col-lg-6 portfolio-item">
+          <div class="card h-100">
+            <a href="{{ new.get_absolute_url }}"><img class="card-img-top" src="{{ new.image.url }}" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="{{ new.get_absolute_url }}">{{ new.title }}</a>
+              </h4>
+              <p class="card-text">{{ new.short_description }}</p>
+            </div>
+          </div>
+        </div>
         {% endfor %}
-
-      </div>
-      <!-- /.row -->
-
     </div>
-    <!-- /.col-lg-9 -->
-
-  </div>
-  <!-- /.row -->
+    </div>
+    </section>
 {% endblock content %}
