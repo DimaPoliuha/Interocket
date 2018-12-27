@@ -148,29 +148,6 @@
             ctx=canv.getContext("2d");
             document.addEventListener("keydown",keyPush);
             setInterval(game,1000/15);
-
-
-
-
-
-            {#let tour_slug = $(this).attr('data-slug');#}
-            {#let data = {#}
-            {#    tour_slug }#}
-            {##}
-            {#$.ajax({#}
-            {#    type: "GET",#}
-            {#    url: "{% url 'remove_from_cart' %}",#}
-            {#    data,#}
-            {#    success: (data) => {#}
-            {#        $('#cart-total').html(parseFloat(data.cart_total).toFixed(5));#}
-            {#        $('#cart-count').html(data.cart_total_count);#}
-            {#        if(data.cart_total_count == 0){#}
-            {#            $("#shopping-cart").remove()#}
-            {#            $('#shopping-cart-title').html('cart is empty')#}
-            {#        }#}
-            {#    }})#}
-            {##}
-            {#$('.cart-item-' + tour_slug).remove()#}
         });
         $('.close').on('click', function(e) {
             $('html, body').css({
