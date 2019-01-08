@@ -4,51 +4,56 @@
 {% block content %}
     {% include 'header_dark.html' %}
 
-    <section class="contact-section flex flex-col flex-centered" id="contact">
+    <section class="contact-section flex flex-col flex-centered order-section" id="contact">
       <div class="contact-section-wrapper flex flex-centered">
         <div class="contact-wrapper flex flex-col flex-centered">
 
           <h2 class="standard-title text-centered light">Checkout.</h2>
 
-            <table class="table">
-                <tr>
-                    <td class="text-danger">tour</td>
-                    <td class="text-danger">price</td>
-                    <td></td>
-                </tr>
-                {% for item in cart.items.all %}
-                    <tr class="cart-item-{{ item.slug }}">
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.price }}</td>
-                        <td></td>
+            <table class="table table-bordered order-table">
+                <thead class="thead-success cart-head-wrapper">
+                    <tr>
+                        <td class="text-info bold">TOUR</td>
+                        <td class="text-info bold">PRICE</td>
                     </tr>
-                {% endfor %}
-                <tr>
+                </thead>
+                <tbody>
+                  {% for item in cart.items.all %}
+                    <tr class="cart-item-{{ item.slug }}">
+                      <td>{{ item.title }}</td>
+                      <td>{{ item.price }}</td>
+                    </tr>
+                  {% endfor %}
+                  <tr>
                     <td><h3 class="text-info">Total cost:</h3></td>
                     <td id="cart-total">{{ cart.cart_total }}</td>
-                    <td></td>
-                </tr>
+                  </tr>
+                </tbody>
             </table>
 
-          <div class="contact-form-container">
+          <div class="contact-form-container order-container">
             <form action='{% url 'checkout' %}' method="post" class='form'>
                 {% csrf_token %}
-              <p class='field required' data-aos="upSlideLong" data-aos-once="false">
-                <label class='label' for='first_name'>First Name</label>
-                <input class='text-input' id='first_name' name='first_name' required type='text' value="{{ request.user.first_name }}">
-              </p>
-                <p class='field required' data-aos="upSlideLong" data-aos-once="false">
-                <label class='label' for='last_name'>Last Name</label>
-                <input class='text-input' id='last_name' name='last_name' required type='text' value="{{ request.user.last_name }}">
-              </p>
-                <p class='field required' data-aos="upSlideLong" data-aos-once="false">
-                <label class='label' for='phone'>Phone</label>
-                <input class='text-input' id='phone' name='phone' required type='text'>
-              </p>
-                <p class='field required' data-aos="upSlideLong" data-aos-once="false">
-                <label class='label' for='date'></label>
-                <input class='text-input' id='date' name='date' required type='date'>
-              </p>
+              <div>
+                <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                  <label class='label' for='first_name'>First Name</label>
+                  <input class='text-input' id='first_name' name='first_name' required type='text' value="{{ request.user.first_name }}">
+                </p>
+                  <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                  <label class='label' for='last_name'>Last Name</label>
+                  <input class='text-input' id='last_name' name='last_name' required type='text' value="{{ request.user.last_name }}">
+                </p>
+              </div>
+              <div>
+                <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                  <label class='label' for='phone'>Phone</label>
+                  <input class='text-input' id='phone' name='phone' required type='text'>
+                </p>
+                <p class='field required half' data-aos="upSlideLong" data-aos-once="false">
+                  <label class='label' for='date'></label>
+                  <input class='text-input' id='date' name='date' required type='date'>
+                </p>
+              </div>
                 <p class='field required' data-aos="upSlideLong" data-aos-once="false">
                 <label class='label' for='address'>Address</label>
                 <input class='text-input' id='address' name='address' required type='text'>

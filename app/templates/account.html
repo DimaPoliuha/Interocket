@@ -8,23 +8,25 @@
       <div class="contact-section-wrapper flex flex-centered">
         <div class="contact-wrapper flex flex-col flex-centered">
 
-            <h2 class="standard-title text-centered light">Orders.</h2>
+            <h2 class="standard-title text-centered light">Orders History.</h2>
 
-            <table>
-                <tr>
-                    <td>Order number</td>
-                    <td>Order date</td>
-                    <td>Order status</td>
-                    <td>Order price</td>
-                    <td>Order details</td>
-                </tr>
+            <table class="account-table table table-bordered">
+                <thead class="thead-success" style="background-color: #ffffff">
+                    <tr>
+                        <td class="text-info bold td-account">Order number</td>
+                        <td class="text-info bold td-account">Order date</td>
+                        <td class="text-info bold td-account">Order status</td>
+                        <td class="text-info bold td-account">Order price</td>
+                        <td class="text-info bold td-account">Order details</td>
+                    </tr>
+                </thead>
                 {% for order in orders %}
                     <tr>
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.date }}</td>
-                        <td>{{ order.status }}</td>
-                        <td>{{ order.total_price }}</td>
-                        <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal-{{ order.id }}">
+                        <td class="td-account">{{ order.id }}</td>
+                        <td class="td-account">{{ order.date }}</td>
+                        <td class="td-account">{{ order.status }}</td>
+                        <td class="td-account">{{ order.total_price }}</td>
+                        <td class="td-account"><button type="button" class="btn btn-sm checkout-button" data-toggle="modal" data-target="#myModal-{{ order.id }}">
                           Order details
                         </button></td>
                     </tr>

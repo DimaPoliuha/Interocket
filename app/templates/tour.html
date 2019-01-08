@@ -1,27 +1,30 @@
 {% extends 'wrapper.html' %}
 
 {% block content %}
-    {% include 'header.html' %}
-    <div class="container" style="padding-top: 7%">
+    {% include 'header-alt.html' %}
+    <div class="container tour-container" style="padding-top: 7%">
 
-    <div class="col-lg-12 col-md-12 mb-12">
-      <div class="card h-100">
-        <img class="card-img-top" src="{{ tour.image.url }}" alt="">
-        <div class="card-body">
-          <h4 class="card-title">
-            {{ tour.title }}
-          </h4>
-          <p class="card-text">{{ tour.description }}</p>
-            <p class="card-text">Duration {{ tour.duration }} Earth days</p>
-            <h5>{{ tour.price }} BTC</h5>
-            {% if request.user.is_authenticated %}
-                <a href="" class="add-to-cart" data-slug="{{ tour.slug }}"><button class="btn btn-danger">Add to cart</button></a>
-            {% else %}
-                <a href="{% url 'registration' %}" class=""><button class="btn btn-danger">Sign Up</button></a>
-            {% endif %}
+        <div class="col-lg-12 col-md-12 mb-12 tour-outer-wrapper flex">
+            <div class="card tour-card-wrapper flex">
+                <img class="card-img-top tour-card-image" src="{{ tour.image.url }}" alt="">
+                <div class="card-body tour-card-body-wrapper">
+                <h4 class="card-title">
+                    {{ tour.title }}
+                </h4>
+                <p class="card-text">{{ tour.description }}</p>
+                    <p class="card-text">Duration {{ tour.duration }} Earth days</p>
+                    <h5>{{ tour.price }} BTC</h5>
+                    <div class="tour-action-container flex">
+                        {% if request.user.is_authenticated %}
+                            <a href="" class="add-to-cart" data-slug="{{ tour.slug }}"><button class="btn btn-danger">Add to cart</button></a>
+                        {% else %}
+                            <a href="{% url 'registration' %}" class=""><button class="btn btn-danger">Sign Up</button></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+
     </div>
 {% endblock content %}
 

@@ -52,24 +52,28 @@
       </div>
     </section>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Anti-humans</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <canvas id="gc" width="400" height="400"></canvas>
-      </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Snake-o-check</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body flex snake-container">
+                    <canvas id="gc" width="400" height="400"></canvas>
+                    <h5 class="modal-description">Prove that you are not a robot by eating 4 fruits.</h5>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 {% endblock %}
 
 {% block jquery %}
     <script>
+
+    let audio = new Audio("{% static 'audio/thrones.mp3' %}");
+    
     px=py=10;
     gs=tc=20;
     ax=ay=15;
@@ -77,8 +81,10 @@
     trail=[];
     tail = 5;
     function game() {
-        if(tail > 6){
+        if(tail > 8){
             tail = 5;
+            // alert('Great Job!');
+            audio.pause();
             $('.close').click();
             $('#button-submit').unbind('click');
             $('#button-submit').click();
@@ -97,10 +103,10 @@
         if(py>tc-1) {
             py= 0;
         }
-        ctx.fillStyle="black";
+        ctx.fillStyle="#2f2f2f";
         ctx.fillRect(0,0,canv.width,canv.height);
 
-        ctx.fillStyle="lime";
+        ctx.fillStyle="#83ce7c";
         for(var i=0;i<trail.length;i++) {
             ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
             if(trail[i].x==px && trail[i].y==py) {
@@ -118,7 +124,7 @@
             ay=Math.floor(Math.random()*tc);
 
         }
-        ctx.fillStyle="red";
+        ctx.fillStyle="#e7bd16";
         ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
     }
     function keyPush(evt) {
@@ -140,6 +146,8 @@
     $( document ).ready(function() {
         $('#button-submit').on('click', function(e) {
             e.preventDefault();
+            audio.play();
+
             $('html, body').css({
                 overflow: 'hidden',
                 height: '100%'
@@ -150,11 +158,13 @@
             setInterval(game,1000/15);
         });
         $('.close').on('click', function(e) {
+            audio.pause();
             $('html, body').css({
                 overflowY: 'auto',
                 height: 'auto'
             });
 
+            location.reload();
         });
     });
     </script>

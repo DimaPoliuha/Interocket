@@ -1,0 +1,33 @@
+  <!-- REGULAR HEADER -->
+  <header class="header-main">
+      <div class="header-wrapper flex row">
+
+			<div class="header-menu-item-wrapper">
+				<ul class="header-menu flex" data-aos="leftSlideLong" data-aos-duration="550" data-aos-once="true">
+					<li class="header-menu-unit"><a class="header-menu-link title-link header-text-logo black" href="{% url 'base' %}">Interocket.</a></li>
+				</ul>
+			</div>
+			<div class="header-menu-item-wrapper">
+				<ul class="header-menu flex" data-aos="leftSlideLong" data-aos-duration="550" data-aos-once="true">
+                    <li class="header-menu-unit"><a class="header-menu-link bold" href="{% url 'base' %}">Home</a></li>
+				</ul>
+			</div>
+			<div class="header-menu-item-wrapper">
+				<ul class="header-menu flex" data-aos="leftSlideLong" data-aos-duration="550" data-aos-once="true">
+                    {% if request.user.is_authenticated %}
+                        <li class="header-menu-unit"><a class="header-menu-link bold" href="{% url 'cart' %}">Cart <span class="badge" id="cart-count">{% if not request.session.total %} 0 {% else %} {{ request.session.total }} {% endif %}</span></a></li>
+                        <ul class="header-menu-unit user-action flex">
+                            <li class="header-menu-unit"><a class="header-menu-link bold" href="{% url 'account' %}">{{ request.user }}</a></li>
+                            <li><a class="header-menu-link bold" href="{% url 'logout' %}">Log out</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="header-menu-unit user-action flex">
+                        <li><a class="header-menu-link bold" href="{% url 'registration' %}">Sign Up</a></li>
+                        <li><a class="header-menu-link bold" href="{% url 'login' %}">Sign In</a></li>
+                      </ul>
+                  {% endif %}
+				</ul>
+			</div>
+
+      </div>
+  </header>
